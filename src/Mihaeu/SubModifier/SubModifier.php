@@ -6,13 +6,48 @@ define('S_TO_MS',   1000);
 define('MIN_TO_MS', S_TO_MS * 60);
 define('H_TO_MS',   MIN_TO_MS * 60);
 
+/**
+ * SubModifier
+ *
+ * SubModifier modifies subtitle files by increasing or decreasing
+ * the subtitle files and by re-indexing the subtitles (in case a subtitle file
+ * has to be split up for multi-part movies).
+ * 
+ * Currently only supports .srt files.
+ *
+ * @author Michael Haeuslmann <haeuslmann@gmail.com>
+ */
 class SubModifier
 {
-    public $indexRegex = '/^\d+$/';
-    public $srtTimeLineRegex = '/(?<from>\d\d:\d\d:\d\d,\d\d\d) --> (?<to>\d\d:\d\d:\d\d,\d\d\d)/';
+    /**
+     * @var string
+     */
+    private $indexRegex = '/^\d+$/';
     
-    public $srtTimeFormat = '%02d:%02d:%02d,%03d';
-    public $srtTimeRegex = '/(?<neg>-)?(?<h>\d\d):(?<min>[0-5][0-9]):(?<s>[0-5][0-9]),(?<ms>\d\d\d)/';
+    /**
+     * @var string
+     */
+    private $srtTimeFormat = '%02d:%02d:%02d,%03d';
+    
+    /**
+     * @var string
+     */
+    private $srtTimeLineRegex = '/
+        (?<from>\d\d:\d\d:\d\d,\d\d\d)  # from timestamp, e.g. 00:00:00,000
+        \ -->\ 
+        (?<to>\d\d:\d\d:\d\d,\d\d\d)    # to timestamp, e.g. 00:00:00,000
+        /x';
+    
+    /**
+     * @var string
+     */
+    private $srtTimeRegex = '/
+        (?<neg>-)?              # optional minus
+        (?<h>\d\d)              # hours from 00 to 99
+        :(?<min>[0-5][0-9])     # minutes from 00 to 59
+        :(?<s>[0-5][0-9])       # seconds from 00 to 59
+        ,(?<ms>\d\d\d)          # ms from 000 to 999
+        /x';
 
     /**
      * Modifies the timestamps in an .srt subtitle file.
@@ -38,8 +73,9 @@ class SubModifier
         $offsetTimeMs = $this->srtTimeToMs($offsetSrtTime);
 
         $contents = $this->normalizeLinefeeds(file_get_contents($srtFile));
+        $lines = explode("\n", $contents);
         $output = [];
-        foreach (explode("\n", $contents) as $line) {
+        foreach ($lines as $line) {
             $matches = [];
             if (preg_match($this->indexRegex, $line)) {
                 $output[] = $entryNumber;

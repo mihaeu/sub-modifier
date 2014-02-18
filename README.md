@@ -15,7 +15,7 @@ composer require mihaeu/sub-modifier:1.*
 In most cases however this is more useful installed globally along with other tools like phpunit, phing, etc. as a global script:
 
 ```bash
-composer gloabl require mihaeu/sub-modifier:1.*
+composer global require mihaeu/sub-modifier:1.*
 ```
 
 Make sure the global composer path (usually `~/.composer/bin`) is in your `$PATH`.

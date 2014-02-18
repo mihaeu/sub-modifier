@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+$files = [
+    // installed as composer dependency: %ROOT%/vendor/bin/submod
+    __DIR__.'/../autoload.php',
+
+    // installed as main package: %ROOT%/bin/submod
+    __DIR__.'/../vendor/autoload.php'
+];
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
+if (count($argv) < 3) {
+    exit("Usage: php change-sub.php [SRT_FILE] [-01:00:00,000]\n\n".
+        "Positive offset time means subtitle will be displayed sooner.\n".
+        "Negative offset time means the subtitle will be delayed.\n");
+}
+
+$srtFile       = $argv[1];
+$offsetSrtTime = $argv[2];
+
+$subModifier = new Mihaeu\SubModifier\SubModifier();
+$subModifier->parseSrtFile($srtFile, $offsetSrtTime);

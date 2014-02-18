@@ -2,8 +2,12 @@
     "name": "mihaeu/sub-modifier",
     "description": "SubModifier modifies subtitle files by increasing or decreasing and by re-indexing the subtitle entries.",
     "keywords": ["subtitle", "srt", "subs"],
+    "homepage": "https://github.com/mihaeu/sub-modifier",
     "license": "MIT",
-
+    "version": "1.0.1",
+    "require": {
+        "php": ">= 5.4"
+    },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },

@@ -25,4 +25,4 @@ $srtFile       = $argv[1];
 $offsetSrtTime = $argv[2];
 
 $subModifier = new Mihaeu\SubModifier\SubModifier();
-$subModifier->parseSrtFile($srtFile, $offsetSrtTime);
+echo $subModifier->modifySrtFile($srtFile, $offsetSrtTime);

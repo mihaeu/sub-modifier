@@ -1,5 +1,10 @@
 {
-    "require": {
+    "name": "mihaeu/sub-modifier",
+    "description": "SubModifier modifies subtitle files by increasing or decreasing and by re-indexing the subtitle entries.",
+    "keywords": ["subtitle", "srt", "subs"],
+    "license": "MIT",
+
+    "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
@@ -9,5 +14,5 @@
     },
     "bin": [
         "bin/submod"
-    ],
+    ]
 }

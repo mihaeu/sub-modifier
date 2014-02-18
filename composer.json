@@ -4,7 +4,8 @@
     "keywords": ["subtitle", "srt", "subs"],
     "homepage": "https://github.com/mihaeu/sub-modifier",
     "license": "MIT",
-    "version": "1.0.1",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
         "php": ">= 5.4"
     },

@@ -5,8 +5,11 @@ $files = [
     // installed as composer dependency: %ROOT%/vendor/bin/submod
     __DIR__.'/../autoload.php',
 
-    // installed as main package: %ROOT%/bin/submod
-    __DIR__.'/../vendor/autoload.php'
+    // main repo or clone from git
+    __DIR__.'/../vendor/autoload.php',
+
+    // installed as global package: ~/vendor/mihaeu/sub-modifier/bin/submod
+    __DIR__.'/../../../vendor/autoload.php'
 ];
 foreach ($files as $file) {
     if (file_exists($file)) {
